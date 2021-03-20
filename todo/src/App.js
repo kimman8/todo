@@ -4,21 +4,16 @@ import Button from "./components/Button";
 import Tasks from "./components/Tasks";
 import React, { useState, useEffect } from "react";
 import M from "materialize-css";
+import Form from "./components/Form";
 import AddTaskForm from "./components/AddTaskForm";
 
 const App = () => {
-  const [newTask, setNewTask] = useState({});
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(e.target.value);
-  };
-
   useEffect(() => {
     M.AutoInit();
   });
   const tasks = [
     {
-      event: "Dentist appointment",
+      event: "Dentist appointment cunt",
       date: "5th of Feb",
       time: "1:30pm",
       id: 1,
