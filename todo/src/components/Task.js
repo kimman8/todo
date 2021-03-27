@@ -1,17 +1,20 @@
 import React from "react";
 import M from "materialize-css";
 
-const Task = ({ task }) => {
+const Task = ({ task, onToggyy, onDelete }) => {
   return (
     <li
       key={task.id}
+      onDoubleClick={() => onToggyy(task.id)}
       className={
-        task.completed ? "collection-item green" : "collection-item red"
+        task.reminder ? "collection-item green" : "collection-item red"
       }
     >
-      {task.event} on {task.date} at {task.time}{" "}
+      {task.event} one {task.dateTime}{" "}
       <a href="#!" className="secondary-content white">
-        <i className="material-icons">delete</i>
+        <i className="material-icons" onClick={() => onDelete(task.id)}>
+          delete
+        </i>
       </a>
     </li>
   );

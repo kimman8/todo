@@ -3,15 +3,14 @@ import Task from "./Task";
 import M from "materialize-css";
 import Header from "./Header";
 
-const Tasks = ({ tasks }) => {
+const Tasks = ({ tasks, onDelete, onToggyy }) => {
   return (
     <ul className="collection with-header">
-      <li className="collection-header center">
-        <Header />
+      <li className="collection-header ">
+        {tasks.map((task) => (
+          <Task task={task} onDelete={onDelete} onToggyy={onToggyy} />
+        ))}
       </li>
-      {tasks.map((task) => (
-        <Task task={task} />
-      ))}
     </ul>
   );
 };

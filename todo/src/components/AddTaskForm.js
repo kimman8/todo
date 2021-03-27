@@ -1,79 +1,63 @@
 import React, { useState } from "react";
+import Button from "./Button";
 import M from "materialize-css";
 
-const AddTaskForm = () => {
-  const [newTask, setNewTask] = useState({
-    event: "",
-    date: "",
-    time: "",
-    completed: false,
-    id: Math.random() * 100000,
-  });
-  const handleSubmit = (e) => {
+const AddTaskForm = ({ onAdd }) => {
+  const [event, setEvent] = useState("");
+  const [dateTime, setDateTime] = useState("");
+  const [reminder, setReminder] = useState(false);
+
+  const onSubmit = (e) => {
     e.preventDefault();
-    setNewTask({ ...newTask, [e.target.id]: e.target.value });
-    console.log(e.target.value);
-  };
-  const addTask = () => {
-    console.log("hi");
-  };
-  const handleClick = (e) => {
-    // e.preventDefault(); !!! this caused me so much grieffff ffs!!!
-    setNewTask({ ...newTask, completed: !newTask.completed });
-    console.log(e.target.value);
+    if (!event) {
+      alert("add event!");
+      return;
+    }
+    onAdd({ event, dateTime, reminder });
+    setEvent("");
+    setDateTime("");
+    setReminder(false);
   };
   return (
     <div className="row">
-      <form className="col s12" onSubmit={handleSubmit} action="#">
+      <form className="col s12" action="#" onSubmit={onSubmit}>
         <div className="row">
           <div className="input-field col s6">
             <input
-              placeholder="Add Task"
-              id="event"
+              placeholder="Add Task!!"
               type="text"
               className="validate"
-              value={newTask.event}
-              onChange={handleSubmit}
+              value={event}
+              onChange={(e) => setEvent(e.target.value)}
             />
             <label htmlFor="event">Task</label>
           </div>
           <div className="input-field col s6">
             <input
-              id="date"
               type="text"
               className="validate"
-              value={newTask.date}
-              onChange={handleSubmit}
+              value={dateTime}
+              onChange={(e) => {
+                setDateTime(e.target.value);
+              }}
             />
-            <label htmlFor="date">Date</label>
+            <label htmlFor="dateTime">Date & Time</label>
           </div>
         </div>
-
-        <div className="row">
-          <div className="input-field col s12">
+        <div className="form-control form-control-check">
+          <label>
+            {/* dont need a "htmlFor" inside of the checkbox label!!!!! otherwise da checkbox wont work!*/}
             <input
-              id="time"
-              type="text"
-              className="validate"
-              value={newTask.time}
-              onChange={handleSubmit}
-            />
-            <label htmlFor="time">Time</label>
-          </div>
-        </div>
-      </form>
-      <form action="#">
-        <p>
-          <label for="check">
-            <input
-              id="check"
               type="checkbox"
-              value={newTask.completed}
-              onClick={handleClick}
+              value={reminder}
+              checked={reminder}
+              onChange={(e) => setReminder(e.currentTarget.checked)}
+              // onClick={() => console.log("hey")}
             />
-            <span>Completed</span>
+            <span>Reminder</span>
           </label>
-        </p>
+        </div>
+        <input type="submit" value="Save Task" className="btn btn-block" />
       </form>
     </div>
   );
